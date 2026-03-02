@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de Tarefas</title>
+</head>
+<body style="font-family:sans-serif; padding:20px;">
+  <h2>📋 Tarefas</h2>
+  <p><a href="{% url 'nova_tarefa' %}">+ Nova tarefa</a></p>
+
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Projeto</th>
+        <th>Responsável</th>
+        <th>Prazo</th>
+        <th>Foto</th>
+        <th>Criado em</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in tarefas %}
+      <tr>
+        <td>{{ t.id }}</td>
+        <td>{{ t.titulo }}</td>
+        <td>{{ t.projeto|default:"-" }}</td>
+        <td>{{ t.responsavel|default:"-" }}</td>
+        <td>{{ t.prazo|default:"-" }}</td>
+        <td>
+          {% if t.foto %}
+            <a href="{{ t.foto.url }}" target="_blank">Ver foto</a>
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>{{ t.criado_em }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="7">Nenhuma tarefa cadastrada.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
