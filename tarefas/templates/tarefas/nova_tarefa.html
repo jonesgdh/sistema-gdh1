@@ -47,6 +47,14 @@
       <a href="{% url 'novo_responsavel' %}?next={% url 'nova_tarefa' %}">+ Nova atribuição</a>
     </div>
 
+    <div>
+        <label for="{{ form.cliente.id_for_label }}">Cliente:</label>
+        {{ form.cliente }}
+
+      <div style="margin-top:6px;">
+        <a href="{% url 'novo_cliente' %}?next={% url 'nova_tarefa' %}">+ Novo cliente</a>
+      </div>
+    </div>
 
     <div>
       <label for="{{ form.prazo.id_for_label }}">Prazo de Entrega:</label>

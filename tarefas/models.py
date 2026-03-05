@@ -8,12 +8,26 @@ class Projeto(models.Model):
 class Responsavel(models.Model):
     nome = models.CharField(max_length=120)
     username = models.CharField(max_length=60, unique=True)
+
+    telefone = models.CharField(max_length=20, blank=True, null=True)
+    endereco = models.CharField(max_length=255, blank=True, null=True)
+
     def __str__(self):
         return f"{self.nome} ({self.username})"
+    
+class Cliente(models.Model):
+    nome = models.CharField(max_length=120)
+    telefone = models.CharField(max_length=20, blank=True, null=True)
+    endereco = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
 
+    def __str__(self):
+        return self.nome
+    
 class Tarefa(models.Model):
     titulo = models.CharField(max_length=200)
     descricao = models.TextField(blank=True)
+    cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True, blank=True)
     projeto = models.ForeignKey(Projeto, on_delete=models.SET_NULL, null=True, blank=True)
     responsavel = models.ForeignKey(Responsavel, on_delete=models.SET_NULL, null=True, blank=True)
     prazo = models.DateField(null=True, blank=True)
@@ -22,3 +36,13 @@ class Tarefa(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+    status = models.CharField(
+    max_length=20,
+    choices=[
+        ("aberta", "Aberta"),
+        ("andamento", "Em andamento"),
+        ("concluida", "Concluída")
+    ],
+    default="aberta"
+)

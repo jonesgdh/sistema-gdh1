@@ -16,6 +16,9 @@
         <th>Título</th>
         <th>Projeto</th>
         <th>Responsável</th>
+        <th>Telefone</th>
+        <th>Endereço</th>
+        <th>Cliente</th>
         <th>Prazo</th>
         <th>Foto</th>
         <th>Criado em</th>
@@ -28,7 +31,18 @@
         <td>{{ t.titulo }}</td>
         <td>{{ t.projeto|default:"-" }}</td>
         <td>{{ t.responsavel|default:"-" }}</td>
+        <td>{{ t.responsavel.telefone|default:"-" }}</td>
+        <td>{{ t.responsavel.endereco|default:"-" }}</td>
+        <td>{{ t.cliente|default:"-" }}</td>
         <td>{{ t.prazo|default:"-" }}</td>
+        <td>
+          {% if t.cliente %}
+             {{ t.cliente.telefone|default:"-" }}<br>
+             {{ t.cliente.endereco|default:"-" }}
+          {% else %}
+    -
+          {% endif %}
+        </td>
         <td>
           {% if t.foto %}
             <a href="{{ t.foto.url }}" target="_blank">Ver foto</a>

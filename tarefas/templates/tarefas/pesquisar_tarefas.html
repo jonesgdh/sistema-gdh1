@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pesquisar Tarefas</title>
+</head>
+<body style="font-family:sans-serif; padding:20px;">
+  <h2>🔎 Pesquisar Tarefas</h2>
+
+  <form method="get" style="margin-bottom: 12px;">
+    <input type="text" name="q" value="{{ q }}" placeholder="Digite título, descrição, projeto, responsável"
+           style="width:70%; padding:8px;">
+    <button type="submit" style="padding:8px 12px;">Pesquisar</button>
+    <a href="{% url 'index' %}" style="margin-left:10px;">Voltar</a>
+  </form>
+
+  <p><a href="{% url 'nova_tarefa' %}">➕ Nova tarefa</a></p>
+
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Projeto</th>
+        <th>Responsável</th>
+        <th>Prazo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in tarefas %}
+      <tr>
+        <td>{{ t.id }}</td>
+        <td>{{ t.titulo }}</td>
+        <td>{{ t.projeto|default:"-" }}</td>
+        <td>{{ t.responsavel|default:"-" }}</td>
+        <td>{{ t.prazo|default:"-" }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5">Nenhuma tarefa encontrada.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
