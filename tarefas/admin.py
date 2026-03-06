@@ -1,7 +1,5 @@
 from django.contrib import admin
-from .models import Projeto, Responsavel, Tarefa, Cliente
+from .models import Cliente, Servico
 
-admin.site.register(Projeto)
-admin.site.register(Responsavel)
 admin.site.register(Cliente)
-admin.site.register(Tarefa)
+admin.site.register(Servico)

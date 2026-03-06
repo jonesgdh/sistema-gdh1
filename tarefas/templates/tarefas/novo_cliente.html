@@ -1,50 +1,42 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Novo Cliente</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    form { max-width: 500px; margin: auto; }
-    div { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; }
-    input { width: 100%; padding: 8px; box-sizing: border-box; }
-    button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
-  </style>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Novo Cliente{% endblock %}
 
-  <form method="post">
-    <h2>Cadastrar Novo Cliente</h2>
-    {% csrf_token %}
+{% block content %}
+<div class="card card-soft p-4">
+    <h2 class="mb-4">Novo Cliente</h2>
 
-    <div>
-      <label for="{{ form.nome.id_for_label }}">Nome:</label>
-      {{ form.nome }}
-    </div>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Corrija os erros abaixo:</strong>
+            {{ form.errors }}
+        </div>
+    {% endif %}
 
-    <div>
-      <label for="{{ form.telefone.id_for_label }}">Telefone:</label>
-      {{ form.telefone }}
-    </div>
+    <form method="post">
+        {% csrf_token %}
 
-    <div>
-      <label for="{{ form.endereco.id_for_label }}">Endereço:</label>
-      {{ form.endereco }}
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Nome</label>
+            {{ form.nome }}
+        </div>
 
-    <div>
-      <label for="{{ form.email.id_for_label }}">E-mail:</label>
-      {{ form.email }}
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Telefone</label>
+            {{ form.telefone }}
+        </div>
 
-    <button type="submit">Salvar Cliente</button>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            {{ form.email }}
+        </div>
 
-    <div style="margin-top:12px;">
-      <a href="{{ next_url }}">Voltar</a>
-    </div>
-  </form>
+        <div class="mb-3">
+            <label class="form-label">Endereço</label>
+            {{ form.endereco }}
+        </div>
 
-</body>
-</html>
+        <button type="submit" class="btn btn-primary">Salvar Cliente</button>
+        <a href="{% url 'listar_clientes' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

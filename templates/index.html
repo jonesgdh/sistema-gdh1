@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <div class="card card-soft p-4 mb-3">
+    <h3 class="mb-1">Bem-vindo, {{ user.username }} 👋</h3>
+    <div class="text-muted">Escolha uma opção no menu lateral.</div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-4">
+      <div class="card card-soft p-4 h-100">
+        <div class="text-muted">Clientes</div>
+        <div class="display-6 fw-semibold">—</div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card card-soft p-4 h-100">
+        <div class="text-muted">Serviços</div>
+        <div class="display-6 fw-semibold">—</div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card card-soft p-4 h-100">
+        <div class="text-muted">Relatórios</div>
+        <div class="display-6 fw-semibold">—</div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

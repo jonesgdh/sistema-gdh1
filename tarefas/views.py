@@ -1,80 +1,55 @@
 from django.shortcuts import render, redirect
-from .forms import TarefaForm, ProjetoForm, ResponsavelForm, ClienteForm
-from .forms import TarefaForm, ProjetoForm, ResponsavelForm
-from .models import Tarefa
+from django.contrib.auth.decorators import login_required
+from .models import Cliente, Servico
+from .forms import ClienteForm, ServicoForm
 
-def nova_tarefa(request):
-    if request.method == "POST":
-        form = TarefaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect("lista_tarefas")
-    else:
-        form = TarefaForm()
 
-    return render(request, "tarefas/nova_tarefa.html", {"form": form})
+@login_required
+def index(request):
+    total_clientes = Cliente.objects.count()
+    total_servicos = Servico.objects.count()
 
+    contexto = {
+        'total_clientes': total_clientes,
+        'total_servicos': total_servicos,
+    }
+
+    return render(request, 'index.html', contexto)
+
+
+@login_required
 def novo_cliente(request):
-    next_url = request.GET.get("next") or "/tarefas/nova/"
-
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ClienteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(next_url)
+            return redirect('listar_clientes')
     else:
         form = ClienteForm()
 
-    return render(request, "tarefas/novo_cliente.html", {"form": form, "next_url": next_url})
-
-def lista_tarefas(request):
-    tarefas = Tarefa.objects.select_related("projeto", "responsavel").order_by("-id")
-    return render(request, "tarefas/lista_tarefas.html", {"tarefas": tarefas})
+    return render(request, 'novo_cliente.html', {'form': form})
 
 
-def novo_projeto(request):
-    next_url = request.GET.get("next") or "/tarefas/nova/"
+@login_required
+def listar_clientes(request):
+    clientes = Cliente.objects.all().order_by('-id')
+    return render(request, 'listar_clientes.html', {'clientes': clientes})
 
-    if request.method == "POST":
-        form = ProjetoForm(request.POST)
+
+@login_required
+def novo_servico(request):
+    if request.method == 'POST':
+        form = ServicoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(next_url)
+            return redirect('listar_servicos')
     else:
-        form = ProjetoForm()
+        form = ServicoForm()
 
-    return render(request, "tarefas/novo_projeto.html", {"form": form, "next_url": next_url})
+    return render(request, 'novo_servico.html', {'form': form})
 
 
-def novo_responsavel(request):
-    next_url = request.GET.get("next") or "/tarefas/nova/"
-
-    if request.method == "POST":
-        form = ResponsavelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(next_url)
-    else:
-        form = ResponsavelForm()
-
-    return render(request, "tarefas/novo_responsavel.html", {"form": form, "next_url": next_url})
-
-def index(request):
-    return render(request, "tarefas/index.html")
-
-def pesquisar_tarefas(request):
-    q = (request.GET.get("q") or "").strip()
-
-    tarefas = Tarefa.objects.select_related("projeto", "responsavel").order_by("-id")
-    if q:
-        tarefas = tarefas.filter(
-    Q(titulo__icontains=q) |
-    Q(descricao__icontains=q) |
-    Q(cliente__nome__icontains=q) |
-    Q(cliente__telefone__icontains=q) |
-    Q(cliente__endereco__icontains=q) |
-    Q(projeto__nome__icontains=q) |
-    Q(responsavel__nome__icontains=q)
-)
-
-    return render(request, "tarefas/pesquisar_tarefas.html", {"tarefas": tarefas, "q": q})
+@login_required
+def listar_servicos(request):
+    servicos = Servico.objects.select_related('cliente').all().order_by('-id')
+    return render(request, 'listar_servicos.html', {'servicos': servicos})
