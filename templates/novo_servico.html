@@ -1,44 +1,17 @@
 {% extends "base.html" %}
+
 {% block title %}Novo Serviço{% endblock %}
 
 {% block content %}
-
 <div class="card card-soft p-4">
+    <h1 class="mb-4">Novo Serviço</h1>
 
-<h2>Novo Serviço</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ servico_form.as_p }}
 
-<form method="post">
-
-    {% csrf_token %}
-
-    <div class="mb-3">
-        <label class="form-label">Cliente</label>
-        {{ form.cliente }}
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Descrição</label>
-        {{ form.descricao }}
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Data do Serviço</label>
-        {{ form.data_servico }}
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Valor</label>
-        {{ form.valor }}
-    </div>
-
-    <button class="btn btn-primary">Salvar Serviço</button>
-
-    <a href="{% url 'listar_servicos' %}" class="btn btn-secondary">
-        Cancelar
-    </a>
-
-</form>
-
+        <button type="submit" class="btn btn-primary">Salvar Serviço</button>
+        <a href="{% url 'listar_servicos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
 </div>
-
 {% endblock %}

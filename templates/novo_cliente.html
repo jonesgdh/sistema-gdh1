@@ -1,54 +1,14 @@
 {% extends "base.html" %}
+
 {% block title %}Novo Cliente{% endblock %}
 
 {% block content %}
 <div class="card card-soft p-4">
-    <h2 class="mb-4">Novo Cliente</h2>
-
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
-    {% if form.errors %}
-        <div class="alert alert-danger">
-            <strong>Corrija os erros abaixo:</strong>
-            <ul class="mb-0">
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+    <h1 class="mb-4">Novo Cliente</h1>
 
     <form method="post">
         {% csrf_token %}
-
-        <div class="mb-3">
-            <label class="form-label" for="{{ form.nome.id_for_label }}">Nome</label>
-            {{ form.nome }}
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label" for="{{ form.telefone.id_for_label }}">Telefone</label>
-            {{ form.telefone }}
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label" for="{{ form.email.id_for_label }}">Email</label>
-            {{ form.email }}
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label" for="{{ form.endereco.id_for_label }}">Endereço</label>
-            {{ form.endereco }}
-        </div>
+        {{ form.as_p }}
 
         <button type="submit" class="btn btn-primary">Salvar Cliente</button>
         <a href="{% url 'listar_clientes' %}" class="btn btn-secondary">Cancelar</a>

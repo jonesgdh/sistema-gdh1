@@ -35,7 +35,7 @@
     </div>
 
     <div style="margin-top:6px;">
-      <a href="{% url 'novo_projeto' %}?next={% url 'nova_tarefa' %}">+ Novo projeto</a>
+      <a href="{% url 'novo_projeto' %}?next={% url 'novo_servico' %}">+ Novo projeto</a>
     </div>
 
     <div>
@@ -44,7 +44,7 @@
         </div>
 
     <div style="margin-top:6px;">
-      <a href="{% url 'novo_responsavel' %}?next={% url 'nova_tarefa' %}">+ Nova atribuição</a>
+      <a href="{% url 'novo_responsavel' %}?next={% url 'novo_servico' %}">+ Nova atribuição</a>
     </div>
 
     <div>
@@ -52,7 +52,7 @@
         {{ form.cliente }}
 
       <div style="margin-top:6px;">
-        <a href="{% url 'novo_cliente' %}?next={% url 'nova_tarefa' %}">+ Novo cliente</a>
+        <a href="{% url 'novo_cliente' %}?next={% url 'novo_servico' %}">+ Novo cliente</a>
       </div>
     </div>
 

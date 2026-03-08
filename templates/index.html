@@ -1,30 +1,60 @@
 {% extends "base.html" %}
-{% block title %}Dashboard{% endblock %}
+
+{% block title %}
+Dashboard
+{% endblock %}
 
 {% block content %}
-  <div class="card card-soft p-4 mb-3">
-    <h3 class="mb-1">Bem-vindo, {{ user.username }} 👋</h3>
-    <div class="text-muted">Escolha uma opção no menu lateral.</div>
-  </div>
 
-  <div class="row g-3">
-    <div class="col-12 col-md-4">
-      <div class="card card-soft p-4 h-100">
-        <div class="text-muted">Clientes</div>
-        <div class="display-6 fw-semibold">—</div>
-      </div>
+<div class="row g-4">
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card card-soft p-4">
+            <h5>Clientes</h5>
+            <p class="text-muted">Visualizar clientes cadastrados.</p>
+
+            <a class="btn btn-primary" href="{% url 'listar_clientes' %}">
+                Ver Clientes
+            </a>
+        </div>
     </div>
-    <div class="col-12 col-md-4">
-      <div class="card card-soft p-4 h-100">
-        <div class="text-muted">Serviços</div>
-        <div class="display-6 fw-semibold">—</div>
-      </div>
+
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card card-soft p-4">
+            <h5>Novo Cliente</h5>
+            <p class="text-muted">Cadastrar um novo cliente.</p>
+
+            <a class="btn btn-success" href="{% url 'novo_cliente' %}">
+                Novo Cliente
+            </a>
+        </div>
     </div>
-    <div class="col-12 col-md-4">
-      <div class="card card-soft p-4 h-100">
-        <div class="text-muted">Relatórios</div>
-        <div class="display-6 fw-semibold">—</div>
-      </div>
+
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card card-soft p-4">
+            <h5>Serviços</h5>
+            <p class="text-muted">Lista de serviços cadastrados.</p>
+
+            <a class="btn btn-primary" href="{% url 'listar_servicos' %}">
+                Ver Serviços
+            </a>
+        </div>
     </div>
-  </div>
+
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card card-soft p-4">
+            <h5>Novo Serviço</h5>
+            <p class="text-muted">Cadastrar novo serviço.</p>
+
+            <a class="btn btn-success" href="{% url 'novo_servico' %}">
+                Novo Serviço
+            </a>
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

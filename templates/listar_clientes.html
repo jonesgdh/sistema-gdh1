@@ -1,44 +1,42 @@
 {% extends "base.html" %}
-{% block title %}Listar Clientes{% endblock %}
 
 {% block content %}
-<div class="card card-soft p-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="mb-0">Clientes</h2>
-        <a href="{% url 'novo_cliente' %}" class="btn btn-primary">+ Novo Cliente</a>
-    </div>
+<h2>Serviços</h2>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success">{{ message }}</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Valor Cobrado</th>
+            <th>Total Despesas</th>
+            <th>Lucro</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for servico in servicos %}
+        <tr>
+            <td>{{ servico.id }}</td>
+            <td>{{ servico.cliente }}</td>
+            <td>{{ servico.descricao }}</td>
+            <td>{{ servico.data_servico }}</td>
+            <td>R$ {{ servico.valor_cobrado }}</td>
+            <td>R$ {{ servico.total_despesas }}</td>
+            <td>R$ {{ servico.lucro }}</td>
+            <td>
+                <a href="{% url 'detalhe_servico' servico.id %}" class="btn btn-sm btn-primary">
+                    Abrir
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8">Nenhum serviço cadastrado.</td>
+        </tr>
         {% endfor %}
-    {% endif %}
-
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Email</th>
-                    <th>Endereço</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for cliente in clientes %}
-                <tr>
-                    <td>{{ cliente.nome }}</td>
-                    <td>{{ cliente.telefone }}</td>
-                    <td>{{ cliente.email }}</td>
-                    <td>{{ cliente.endereco }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4">Nenhum cliente cadastrado.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+    </tbody>
+</table>
 {% endblock %}

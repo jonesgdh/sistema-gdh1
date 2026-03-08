@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card card-soft p-4 mb-4">
+    <h2>Serviço #{{ servico.id }}</h2>
+    <p><strong>Cliente:</strong> {{ servico.cliente }}</p>
+    <p><strong>Descrição:</strong> {{ servico.descricao }}</p>
+    <p><strong>Data:</strong> {{ servico.data_servico }}</p>
+    <p><strong>Valor cobrado:</strong> R$ {{ servico.valor_cobrado }}</p>
+    <p><strong>Total despesas:</strong> R$ {{ servico.total_despesas }}</p>
+    <p><strong>Lucro:</strong> R$ {{ servico.lucro }}</p>
+</div>
+
+<div class="card card-soft p-4 mb-4">
+    <h3>Adicionar despesa</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ despesa_form.as_p }}
+        <button type="submit" class="btn btn-success">Adicionar Despesa</button>
+    </form>
+</div>
+
+<div class="card card-soft p-4">
+    <h3>Despesas do serviço</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for despesa in despesas %}
+            <tr>
+                <td>{{ despesa.descricao }}</td>
+                <td>R$ {{ despesa.valor }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">Nenhuma despesa cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
