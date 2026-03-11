@@ -1,0 +1,14 @@
+senha de super usuário postgree
+gdh85878171
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'gdh_sistema',
+        'USER': 'gdh_user',
+        'PASSWORD': 'gdh123',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
