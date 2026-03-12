@@ -28,10 +28,15 @@ MEDIA_ROOT = BASE_DIR / "media"
 SECRET_KEY = "django-insecure-odoen%o&k8%+_2-8*h@&zra$qpn)^j2vdpgrw8jg8&1hyd_x-#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "servicos.refrigeracaogdh.com.br",
+    "IP_DO_SERVIDOR",
+]
 
 # Application definition
 
@@ -42,6 +47,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+
+
+
     "tarefas",
 ]
 
@@ -121,7 +130,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -1,3 +1,23 @@
+domínio
+
+jvps65042.publiccloud.com.br
+
+
+201.76.43.199
+
+https://painel-servidores.locaweb.com.br/
+
+usuário
+
+root
+
+senha servidor local web
+
+teRRRa85#
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 senha de super usuário postgree
 gdh85878171
 
