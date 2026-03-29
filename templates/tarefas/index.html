@@ -1,0 +1,58 @@
+{% extends "tarefas/base.html" %}
+{% url 'tarefas:index' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_heading %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4">Dashboard</h1>
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Clientes</h6>
+                <h3>{{ total_clientes }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Serviços</h6>
+                <h3>{{ total_servicos }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Em aberto</h6>
+                <h3>{{ servicos_abertos }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Concluídos</h6>
+                <h3>{{ servicos_concluidos }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+<div class="card card-soft p-4">
+    <h2 class="mb-3">📌 Sistema de Gestão</h2>
+    <p class="text-muted">Escolha uma opção:</p>
+
+    <div class="d-grid gap-3 mt-4">
+        <a class="btn btn-primary" href="{% url 'novo_servico' %}">
+            ➕ Criar nova tarefa
+        </a>
+
+        <a class="btn btn-dark" href="{% url 'listar_servicos' %}">
+            🔎 Pesquisar tarefas
+        </a>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+{% extends "tarefas/base.html" %}
+
+{% block title %}Auditoria{% endblock %}
+{% block page_heading %}Auditoria{% endblock %}
+
+{% block content %}
+<div class="card card-soft p-4">
+    <h3 class="mb-4">Logs de Auditoria</h3>
+
+    {% if logs %}
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Usuário</th>
+                    <th>Ação</th>
+                    <th>Modelo</th>
+                    <th>ID</th>
+                    <th>IP</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.data|date:"d/m/Y H:i:s" }}</td>
+                    <td>{{ log.usuario }}</td>
+                    <td>{{ log.acao }}</td>
+                    <td>{{ log.modelo }}</td>
+                    <td>{{ log.objeto_id }}</td>
+                    <td>{{ log.ip }}</td>
+                    <td>{{ log.descricao }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p>Nenhum registro de auditoria encontrado.</p>
+    {% endif %}
+</div>
+{% endblock %}

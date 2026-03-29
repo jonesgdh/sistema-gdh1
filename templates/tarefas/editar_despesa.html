@@ -1,0 +1,14 @@
+{% extends "tarefas/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Editar despesa</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Salvar alterações</button>
+        <a href="{% url 'tarefas:detalhe_servico' despesa.servico.id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

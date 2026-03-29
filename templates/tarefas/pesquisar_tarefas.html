@@ -12,7 +12,7 @@
     <input type="text" name="q" value="{{ q }}" placeholder="Digite título, descrição, projeto, responsável"
            style="width:70%; padding:8px;">
     <button type="submit" style="padding:8px 12px;">Pesquisar</button>
-    <a href="{% url 'index' %}" style="margin-left:10px;">Voltar</a>
+    <a href="{% url {% url 'tarefas:index' %} %}" style="margin-left:10px;">Voltar</a>
   </form>
 
   <p><a href="{% url 'novo_servico' %}">➕ Nova tarefa</a></p>

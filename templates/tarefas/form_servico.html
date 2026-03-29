@@ -1,0 +1,78 @@
+{% extends "tarefas/base.html" %}
+
+{% block title %}Novo Serviço{% endblock %}
+{% block page_heading %}Cadastro de Serviço{% endblock %}
+
+{% block content %}
+<div class="card card-soft p-4">
+
+    <h5 class="mb-4">Preencha os dados do serviço</h5>
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Corrija os erros abaixo:</strong>
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label class="form-label">Cliente</label>
+                {{ form.cliente }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Data</label>
+                {{ form.data_servico }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Equipamento</label>
+                {{ form.equipamento }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Marca</label>
+                {{ form.marca }}
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Descrição</label>
+                {{ form.descricao }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Valor Cobrado</label>
+                {{ form.valor_cobrado }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Status</label>
+                <label>Status</label>
+              <select name="status" class="form-control">
+              <option value="pendente">Pendente</option>
+              <option value="andamento">Em andamento</option>
+              <option value="finalizado">Finalizado</option>
+              <option value="cancelado">Cancelado</option>
+              </select>
+                {{ form.status }}
+            </div>
+
+        </div>
+
+        <div class="mt-4 d-flex justify-content-between">
+            <a href="{% url 'tarefas:listar_servicos' %}" class="btn btn-secondary">
+                ← Voltar
+            </a>
+
+            <button type="submit" class="btn btn-primary">
+                💾 Salvar Serviço
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

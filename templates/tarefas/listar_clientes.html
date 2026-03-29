@@ -1,0 +1,78 @@
+{% extends "tarefas/base.html" %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div>
+        <h1 class="h3 mb-1">Clientes</h1>
+        <p class="text-muted mb-0">
+            Gerencie os clientes cadastrados no sistema.
+        </p>
+    </div>
+    <a href="{% url 'tarefas:novo_cliente' %}" class="btn btn-primary">
+        + Novo Cliente
+    </a>
+</div>
+
+<div class="card card-soft border-0 shadow-sm">
+    <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <div>
+                <h5 class="mb-1">Lista de clientes</h5>
+                <small class="text-muted">
+                    Total de clientes cadastrados: <strong>{{ clientes|length }}</strong>
+                </small>
+            </div>
+        </div>
+
+        {% if clientes %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Endereço</th>
+                            <th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cliente in clientes %}
+                        <tr>
+                            <td>
+                                <strong class="d-block">{{ cliente.nome }}</strong>
+                            </td>
+                            <td>{{ cliente.telefone|default:"-" }}</td>
+                            <td>{{ cliente.email|default:"-" }}</td>
+                            <td>{{ cliente.endereco|default:"-" }}</td>
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-2">
+                                    <a href="{% url 'tarefas:editar_cliente' cliente.id %}" class="btn btn-sm btn-outline-primary">
+                                        Editar
+                                    </a>
+                                    <a href="{% url 'tarefas:excluir_cliente' cliente.id %}" class="btn btn-sm btn-outline-danger">
+                                        Excluir
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <h5 class="mb-2">Nenhum cliente cadastrado</h5>
+                <p class="text-muted mb-3">
+                    Você ainda não possui clientes registrados no sistema.
+                </p>
+                <a href="{% url 'novo_cliente' %}" class="btn btn-primary">
+                    Cadastrar primeiro cliente
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

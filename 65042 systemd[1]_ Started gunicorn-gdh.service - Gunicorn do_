@@ -1,0 +1,42 @@
+[0;1;32m●[0m gunicorn-gdh.service - Gunicorn do sistema GDH
+     Loaded: loaded (]8;;file://vps65042/etc/systemd/system/gunicorn-gdh.service/etc/systemd/system/gunicorn-gdh.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Thu 2026-03-12 22:14:07 -03; 540ms ago
+   Main PID: 82419 (gunicorn)
+      Tasks: 5 (limit: 1052)
+     Memory: 48.9M (peak: 49.1M)
+        CPU: 510ms
+     CGroup: /system.slice/gunicorn-gdh.service
+             ├─[0;38;5;245m82419 /var/www/sistema-gdh/venv/bin/python3 /var/www/sistema-gdh/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 gestao.wsgi:application[0m
+             ├─[0;38;5;245m82468 /var/www/sistema-gdh/venv/bin/python3 /var/www/sistema-gdh/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 gestao.wsgi:application[0m
+             ├─[0;38;5;245m82469 /var/www/sistema-gdh/venv/bin/python3 /var/www/sistema-gdh/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 gestao.wsgi:application[0m
+             └─[0;38;5;245m82470 /var/www/sistema-gdh/venv/bin/python3 /var/www/sistema-gdh/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 gestao.wsgi:application[0m
+
+Mar 12 22:14:07 vps65042 systemd[1]: Started gunicorn-gdh.service - Gunicorn do sistema GDH.
+Mar 12 22:14:07 vps65042 gunicorn[82419]: [2026-03-12 22:14:07 -0300] [82419] [INFO] Starting gunicorn 25.1.0
+Mar 12 22:14:07 vps65042 gunicorn[82419]: [2026-03-12 22:14:07 -0300] [82419] [INFO] Listening at: http://127.0.0.1:8000 (82419)
+Mar 12 22:14:07 vps65042 gunicorn[82419]: [2026-03-12 22:14:07 -0300] [82419] [INFO] Using worker: sync
+Mar 12 22:14:07 vps65042 gunicorn[82468]: [2026-03-12 22:14:07 -0300] [82468] [INFO] Booting worker with pid: 82468
+Mar 12 22:14:07 vps65042 gunicorn[82419]: [2026-03-12 22:14:07 -0300] [82419] [INFO] Control socket listening at /var/www/sistema-gdh/sistema-gdh1/gunicorn.ctl
+Mar 12 22:14:07 vps65042 gunicorn[82469]: [2026-03-12 22:14:07 -0300] [82469] [INFO] Booting worker with pid: 82469
+Mar 12 22:14:07 vps65042 gunicorn[82470]: [2026-03-12 22:14:07 -0300] [82470] [INFO] Booting worker with pid: 82470
+[0;1;32m●[0m gunicorn-gdh.service - Gunicorn do sistema GDH
+     Loaded: loaded (]8;;file://vps65042/etc/systemd/system/gunicorn-gdh.service/etc/systemd/system/gunicorn-gdh.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Thu 2026-03-12 22:14:07 -03; 1h 21min ago
+   Main PID: 82419 (gunicorn)
+      Tasks: 5 (limit: 1052)
+     Memory: 105.0M (peak: 105.5M)
+        CPU: 3.607s
+     CGroup: /system.slice/gunicorn-gdh.service
+             ├─[0;38;5;245m82419 /var/www/sistema-gdh/venv/bin/python3 /var/www/sistema-gdh/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 gestao.wsgi:application[0m
+             ├─[0;38;5;245m82468 /var/www/sistema-gdh/venv/bin/python3 /var/www/sistema-gdh/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 gestao.wsgi:application[0m
+             ├─[0;38;5;245m82469 /var/www/sistema-gdh/venv/bin/python3 /var/www/sistema-gdh/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 gestao.wsgi:application[0m
+             └─[0;38;5;245m82470 /var/www/sistema-gdh/venv/bin/python3 /var/www/sistema-gdh/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 gestao.wsgi:application[0m
+
+Mar 12 22:14:07 vps65042 systemd[1]: Started gunicorn-gdh.service - Gunicorn do sistema GDH.
+Mar 12 22:14:07 vps65042 gunicorn[82419]: [2026-03-12 22:14:07 -0300] [82419] [INFO] Starting gunicorn 25.1.0
+Mar 12 22:14:07 vps65042 gunicorn[82419]: [2026-03-12 22:14:07 -0300] [82419] [INFO] Listening at: http://127.0.0.1:8000 (82419)
+Mar 12 22:14:07 vps65042 gunicorn[82419]: [2026-03-12 22:14:07 -0300] [82419] [INFO] Using worker: sync
+Mar 12 22:14:07 vps65042 gunicorn[82468]: [2026-03-12 22:14:07 -0300] [82468] [INFO] Booting worker with pid: 82468
+Mar 12 22:14:07 vps65042 gunicorn[82419]: [2026-03-12 22:14:07 -0300] [82419] [INFO] Control socket listening at /var/www/sistema-gdh/sistema-gdh1/gunicorn.ctl
+Mar 12 22:14:07 vps65042 gunicorn[82469]: [2026-03-12 22:14:07 -0300] [82469] [INFO] Booting worker with pid: 82469
+Mar 12 22:14:07 vps65042 gunicorn[82470]: [2026-03-12 22:14:07 -0300] [82470] [INFO] Booting worker with pid: 82470

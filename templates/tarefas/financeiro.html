@@ -1,0 +1,113 @@
+{% extends "tarefas/base.html" %}
+
+{% block title %}Financeiro{% endblock %}
+{% block page_heading %}Financeiro{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="card card-soft p-4">
+            <h6 class="text-muted">Total de Serviços</h6>
+            <h3>{{ total_servicos }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card card-soft p-4">
+            <h6 class="text-muted">Total Recebido</h6>
+            <h3>R$ {{ total_recebido|floatformat:2 }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card card-soft p-4">
+            <h6 class="text-muted">Em Aberto</h6>
+            <h3>R$ {{ total_em_aberto|floatformat:2 }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card card-soft p-4">
+            <h6 class="text-muted">Despesas</h6>
+            <h3>R$ {{ total_despesas|floatformat:2 }}</h3>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-lg-6">
+        <div class="card card-soft p-4">
+            <h5 class="mb-3">Lucro estimado</h5>
+            <h2>R$ {{ lucro_total|floatformat:2 }}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="card card-soft p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Filtros</h5>
+    </div>
+
+    <form method="get" class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Serviço</label>
+            <input type="text" name="servico" class="form-control" value="{{ pesquisa_servico }}" placeholder="Descrição, marca, modelo...">
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Cliente</label>
+            <input type="text" name="cliente" class="form-control" value="{{ pesquisa_cliente }}" placeholder="Nome do cliente">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">Data inicial</label>
+            <input type="date" name="data_inicio" class="form-control" value="{{ data_inicio }}">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">Data final</label>
+            <input type="date" name="data_fim" class="form-control" value="{{ data_fim }}">
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end gap-2">
+            <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+        </div>
+    </form>
+</div>
+<div class="card card-soft p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Filtros</h5>
+        <a href="{% url 'tarefas:exportar_financeiro_excel' %}?servico={{ pesquisa_servico }}&cliente={{ pesquisa_cliente }}&data_inicio={{ data_inicio }}&data_fim={{ data_fim }}"
+           class="btn btn-success">
+            📥 Exportar Excel
+        </a>
+    </div>
+
+    <form method="get" class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Serviço</label>
+            <input type="text" name="servico" class="form-control" value="{{ pesquisa_servico }}">
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Cliente</label>
+            <input type="text" name="cliente" class="form-control" value="{{ pesquisa_cliente }}">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">Data inicial</label>
+            <input type="date" name="data_inicio" class="form-control" value="{{ data_inicio }}">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">Data final</label>
+            <input type="date" name="data_fim" class="form-control" value="{{ data_fim }}">
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

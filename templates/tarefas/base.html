@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{% block title %}Refrigeração GDH{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Refrigeração GDH{% endblock %} | Sistema GDH</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -125,77 +125,98 @@
 <body>
   <div class="d-flex">
 
-    <!-- Sidebar desktop -->
     <aside class="sidebar d-none d-lg-flex flex-column p-3">
       <div class="d-flex align-items-center gap-3 mb-3">
         <div class="brand-badge">GDH</div>
         <div>
           <div class="brand">Refrigeração GDH</div>
-          <div style="font-size:12px; opacity:.85;">Sistema de Gestão</div>
+          <div style="font-size: 12px; opacity: .85;">Sistema de Gestão</div>
         </div>
       </div>
 
       <hr class="border-light opacity-25 my-2">
 
       <nav class="mt-2">
+  <a class="nav-pill {% if request.path == '/' %}active{% endif %}" href="{% url 'tarefas:index' %}">
+    
+    🏠 <span>Painel de controle</span>
+  </a>
 
-        <a class="nav-pill {% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">
-          🏠 <span>Dashboard</span>
-        </a>
+  <div class="menu-section-title">CLIENTES</div>
 
-        <div class="section-label">Clientes</div>
+  <a class="nav-pill {% if '/clientes/' in request.path and '/clientes/novo/' not in request.path %}active{% endif %}" href="{% url 'tarefas:listar_clientes' %}">
+    📋 <span>Listar Clientes</span>
+  </a>
 
-        <a class="nav-pill {% if 'clientes' in request.path and 'novo' not in request.path %}active{% endif %}" href="{% url 'listar_clientes' %}">
-          📋 <span>Listar Clientes</span>
-        </a>
+  <a class="nav-pill {% if '/clientes/novo/' in request.path %}active{% endif %}" href="{% url 'tarefas:novo_cliente' %}">
+    ➕ <span>Novo Cliente</span>
+  </a>
 
-        <a class="nav-pill {% if 'clientes/novo' in request.path %}active{% endif %}" href="{% url 'novo_cliente' %}">
-          ➕ <span>Novo Cliente</span>
-        </a>
+  <div class="menu-section-title">SERVIÇOS</div>
 
-        <div class="section-label">Serviços</div>
+  <a class="nav-pill {% if '/servicos/' in request.path and '/servicos/novo/' not in request.path %}active{% endif %}" href="{% url 'tarefas:listar_servicos' %}">
+    🛠️ <span>Listar Serviços</span>
+  </a>
 
-        <a class="nav-pill {% if 'servicos' in request.path and 'novo' not in request.path %}active{% endif %}" href="{% url 'listar_servicos' %}">
-          🧾 <span>Listar Serviços</span>
-        </a>
+  <a class="nav-pill {% if '/servicos/novo/' in request.path %}active{% endif %}" href="{% url 'tarefas:novo_servico' %}">
+    ➕ <span>Novo Serviço</span>
+  </a>
 
-        <a class="nav-pill {% if 'servicos/novo' in request.path %}active{% endif %}" href="{% url 'novo_servico' %}">
-          ➕ <span>Novo Serviço</span>
-        </a>
+  
+ <div class="menu-section-title">FINANCEIRO</div>
 
-        <div class="section-label">Sistema</div>
 
-        <a class="nav-pill" href="/admin/">
-          ⚙️ <span>Administração</span>
-        </a>
-      </nav>
+<a class="nav-pill {% if '/financeiro/' in request.path %}active{% endif %}" href="{% url 'tarefas:financeiro' %}">
+    💰 <span>Financeiro</span>
+</a>
 
+ 
+{% if request.user.is_superuser %}
+<a class="nav-pill {% if '/auditoria/' in request.path %}active{% endif %}" href="{% url 'tarefas:arquivo_auditoria' %}">
+  🧾 <span>Auditoria</span>
+</a>
+{% endif %}
+
+{% if user.is_superuser %}
+  <a class="nav-pill" href="/admin/auth/user/">
+      👥 <span>Gerenciar Usuários</span>
+  </a>
+
+  <a class="nav-pill" href="/admin/auth/user/add/">
+      ➕ <span>Criar Usuário</span>
+  </a>
+{% endif %}
+ 
+</nav>
       <div class="mt-auto">
         <hr class="border-light opacity-25 my-3">
 
         {% if user.is_authenticated %}
-          <div class="small mb-2" style="opacity:.9;">Logado como</div>
+          <div class="small mb-2" style="opacity: .9;">Logado como</div>
           <div class="d-flex align-items-center justify-content-between gap-2">
             <div class="text-truncate">👤 {{ user.username }}</div>
-            <a class="btn btn-outline-light btn-sm" href="{% url 'logout' %}">Sair</a>
+            
+            <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+                {% csrf_token %}
+                <button type="submit" class="nav-pill border-0 bg-transparent w-100 text-start">
+        🚪                  <span>Sair</span>
+                </button>
+            </form>
+                     
           </div>
         {% else %}
           <a class="btn btn-light btn-sm w-100" href="{% url 'login' %}">Entrar</a>
         {% endif %}
 
-        <div class="mt-3 small" style="opacity:.75;">
+        <div class="mt-3 small" style="opacity: .75;">
           Django • PostgreSQL
         </div>
       </div>
     </aside>
 
-    <!-- Conteúdo -->
     <div class="flex-grow-1 content-wrap">
-
-      <!-- Topbar -->
       <nav class="navbar topbar">
         <div class="container-fluid">
-
           <div class="d-flex align-items-center gap-3">
             <button class="btn btn-outline-primary d-lg-none" type="button"
                     data-bs-toggle="offcanvas" data-bs-target="#sidebarMobile">
@@ -211,19 +232,34 @@
           <div class="d-flex align-items-center gap-2 ms-auto">
             {% if user.is_authenticated %}
               <span class="badge text-bg-primary">👤 {{ user.username }}</span>
-              <a class="btn btn-outline-primary btn-sm" href="{% url 'logout' %}">Sair</a>
+              <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+                {% csrf_token %}
+                <button type="submit" class="nav-pill border-0 bg-transparent w-100 text-start">
+        🚪                  <span>Sair</span>
+                </button>
+            </form>
+              
             {% endif %}
           </div>
         </div>
       </nav>
 
       <main class="container-fluid px-3 px-md-4 py-4 page-box">
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+
         {% block content %}{% endblock %}
       </main>
     </div>
   </div>
 
-  <!-- Sidebar mobile -->
   <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="sidebarMobile">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title">Refrigeração GDH</h5>
@@ -231,24 +267,28 @@
     </div>
 
     <div class="offcanvas-body">
-      <div class="mb-3 small" style="opacity:.85;">Menu</div>
+      <div class="mb-3 small" style="opacity: .85;">Menu</div>
 
       <div class="d-grid gap-2 mobile-menu">
-        <a class="btn btn-outline-light text-start" href="{% url 'index' %}">🏠 Dashboard</a>
-        <a class="btn btn-outline-light text-start" href="{% url 'listar_clientes' %}">📋 Listar Clientes</a>
-        <a class="btn btn-outline-light text-start" href="{% url 'novo_cliente' %}">➕ Novo Cliente</a>
-        <a class="btn btn-outline-light text-start" href="{% url 'listar_servicos' %}">🧾 Listar Serviços</a>
-        <a class="btn btn-outline-light text-start" href="{% url 'novo_servico' %}">➕ Novo Serviço</a>
+        <a class="btn btn-outline-light text-start" href="{% url 'tarefas:index' %}">🏠 Dashboard</a>
+        <a class="btn btn-outline-light text-start" href="{% url 'tarefas:listar_clientes' %}">📋 Listar Clientes</a>
+        <a class="btn btn-outline-light text-start" href="{% url 'tarefas:novo_cliente' %}">➕ Novo Cliente</a>
+        <a class="btn btn-outline-light text-start" href="{% url 'tarefas:listar_servicos' %}">🧾 Listar Serviços</a>
+        <a class="btn btn-outline-light text-start" href="{% url 'tarefas:novo_servico' %}">➕ Novo Serviço</a>
+        <a class="btn btn-outline-light text-start" href="{% url 'tarefas:financeiro' %}">💰 Financeiro</a>
         <a class="btn btn-outline-light text-start" href="/admin/">⚙️ Administração</a>
       </div>
 
       <hr class="border-light opacity-25 my-3">
 
       {% if user.is_authenticated %}
-        <div class="small mb-2" style="opacity:.9;">Logado como</div>
+        <div class="small mb-2" style="opacity: .9;">Logado como</div>
         <div class="d-flex align-items-center justify-content-between">
           <div>👤 {{ user.username }}</div>
-          <a class="btn btn-light btn-sm" href="{% url 'logout' %}">Sair</a>
+          <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit">Sair</button>
+          </form>
         </div>
       {% else %}
         <a class="btn btn-light btn-sm w-100" href="{% url 'login' %}">Entrar</a>
