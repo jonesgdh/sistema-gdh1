@@ -1,0 +1,82 @@
+{% extends 'tarefas/base.html' %}
+
+{% block title %}Conversa{% endblock %}
+{% block page_heading %}Conversa com {{ outro_usuario.username }}{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-4">
+    <div class="card card-soft">
+      <div class="card-body">
+        <h5 class="mb-3">Conversas</h5>
+
+        {% if conversas %}
+          <div class="list-group">
+            {% for item in conversas %}
+              <a href="{% url 'mensagens:conversa' item.usuario.id %}"
+                 class="list-group-item list-group-item-action {% if item.usuario.id == outro_usuario.id %}active{% endif %}">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <strong>{{ item.usuario.username }}</strong><br>
+                    <small class="{% if item.usuario.id == outro_usuario.id %}text-white{% else %}text-muted{% endif %}">
+                      {{ item.ultima.texto|truncatechars:30 }}
+                    </small>
+                  </div>
+                  {% if item.nao_lidas > 0 %}
+                    <span class="badge bg-danger rounded-pill">{{ item.nao_lidas }}</span>
+                  {% endif %}
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-muted mb-0">Nenhuma conversa ainda.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="card card-soft">
+      <div class="card-header bg-white">
+        <strong>Conversando com {{ outro_usuario.username }}</strong>
+      </div>
+
+      <div class="card-body" style="height: 420px; overflow-y: auto; background: #f8fafc;">
+        {% if mensagens %}
+          {% for msg in mensagens %}
+            <div class="mb-3 d-flex {% if msg.remetente == request.user %}justify-content-end{% else %}justify-content-start{% endif %}">
+              <div class="p-3 rounded-4 shadow-sm"
+                   style="
+                     max-width: 75%;
+                     {% if msg.remetente == request.user %}
+                       background: #0d6efd;
+                       color: white;
+                     {% else %}
+                       background: white;
+                       color: #1f2937;
+                     {% endif %}
+                   ">
+                <div>{{ msg.texto }}</div>
+                <div class="mt-2" style="font-size: 12px; opacity: .8;">
+                  {{ msg.data_envio|date:"d/m/Y H:i" }}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted">Nenhuma mensagem nesta conversa.</p>
+        {% endif %}
+      </div>
+
+      <div class="card-footer bg-white">
+        <form method="post" class="d-flex gap-2">
+          {% csrf_token %}
+          <textarea name="texto" class="form-control" rows="2" placeholder="Digite sua mensagem..."></textarea>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -90,6 +90,12 @@ def get_ip(request):
 # =========================
 # DASHBOARD / INDEX
 # =========================
+def index(request):
+    total_mensagens = 3  # teste
+
+    return render(request, 'tarefas/index.html', {
+        'total_mensagens': total_mensagens
+    })
 
 @login_required
 def index(request):
@@ -100,6 +106,7 @@ def index(request):
     servicos_concluidos = Servico.objects.filter(status='concluido').count()
     servicos_entregues = Servico.objects.filter(status='entregue').count()
 
+    
     faturamento_total = Servico.objects.aggregate(
         total=Sum('valor_cobrado')
     )['total'] or Decimal('0.00')

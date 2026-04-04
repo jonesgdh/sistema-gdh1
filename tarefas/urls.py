@@ -20,7 +20,8 @@ urlpatterns = [
     path('servicos/<int:servico_id>/', views.detalhe_servico, name='detalhe_servico'),
     path('servicos/<int:servico_id>/editar/', views.editar_servico, name='editar_servico'),
     path('servicos/<int:servico_id>/deletar/', views.excluir_servico, name='excluir_servico'),
-
+    
+  
     # FINANCEIRO
     path('financeiro/', views.financeiro, name='financeiro'),
     path('financeiro/exportar/excel/', views.exportar_financeiro_excel, name='exportar_financeiro_excel'),
@@ -31,8 +32,7 @@ urlpatterns = [
 
     # PESQUISA
     path('pesquisar-servicos/', views.pesquisar_servicos, name='pesquisar_servicos'),
-    
-     
+        
     # AUDITORIA
     path('auditoria/', views.arquivo_auditoria, name='arquivo_auditoria'),
 

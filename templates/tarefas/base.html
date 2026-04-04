@@ -40,22 +40,44 @@
     .nav-pill {
       display: flex;
       align-items: center;
-      gap: .55rem;
-      padding: .72rem .95rem;
+      gap: .65rem;
+      padding: .78rem 1rem;
       border-radius: 14px;
-      transition: all .2s ease;
-      font-weight: 500;
+      transition: all .25s ease;
+      font-weight: 600;
+      color: rgba(255,255,255,.92);
     }
 
     .nav-pill:hover {
       background: rgba(255,255,255,.10);
-      transform: translateX(2px);
+      transform: translateX(4px);
+      color: #fff;
     }
 
     .nav-pill.active {
-      background: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.16);
       color: #fff;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+    }
+
+    .nav-pill span {
+      line-height: 1.2;
+    }
+
+    .menu-section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      margin: 18px 12px 8px;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .menu-divider {
+      height: 1px;
+      background: rgba(255,255,255,.12);
+      margin: 14px 10px;
+      border-radius: 999px;
     }
 
     .content-wrap {
@@ -77,16 +99,6 @@
       border-radius: 18px;
       box-shadow: 0 10px 30px rgba(0,0,0,.06);
       background: #fff;
-    }
-
-    .section-label {
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.65);
-      margin-top: 1rem;
-      margin-bottom: .45rem;
-      padding-left: .2rem;
     }
 
     .brand-badge {
@@ -134,75 +146,78 @@
         </div>
       </div>
 
-      <hr class="border-light opacity-25 my-2">
+      <div class="menu-divider"></div>
 
       <nav class="mt-2">
-  <a class="nav-pill {% if request.path == '/' %}active{% endif %}" href="{% url 'tarefas:index' %}">
-    
-    🏠 <span>Painel de controle</span>
-  </a>
+        <a class="nav-pill {% if request.path == '/' %}active{% endif %}" href="{% url 'tarefas:index' %}">
+          🏠 <span>Painel de controle</span>
+        </a>
 
-  <div class="menu-section-title">CLIENTES</div>
+        <div class="menu-section-title">Clientes</div>
 
-  <a class="nav-pill {% if '/clientes/' in request.path and '/clientes/novo/' not in request.path %}active{% endif %}" href="{% url 'tarefas:listar_clientes' %}">
-    📋 <span>Listar Clientes</span>
-  </a>
+        <a class="nav-pill {% if '/clientes/' in request.path and '/clientes/novo/' not in request.path %}active{% endif %}" href="{% url 'tarefas:listar_clientes' %}">
+          📋 <span>Listar Clientes</span>
+        </a>
 
-  <a class="nav-pill {% if '/clientes/novo/' in request.path %}active{% endif %}" href="{% url 'tarefas:novo_cliente' %}">
-    ➕ <span>Novo Cliente</span>
-  </a>
+        <a class="nav-pill {% if '/clientes/novo/' in request.path %}active{% endif %}" href="{% url 'tarefas:novo_cliente' %}">
+          ➕ <span>Novo Cliente</span>
+        </a>
 
-  <div class="menu-section-title">SERVIÇOS</div>
+        <div class="menu-section-title">Serviços</div>
 
-  <a class="nav-pill {% if '/servicos/' in request.path and '/servicos/novo/' not in request.path %}active{% endif %}" href="{% url 'tarefas:listar_servicos' %}">
-    🛠️ <span>Listar Serviços</span>
-  </a>
+        <a class="nav-pill {% if '/servicos/' in request.path and '/servicos/novo/' not in request.path %}active{% endif %}" href="{% url 'tarefas:listar_servicos' %}">
+          🛠️ <span>Listar Serviços</span>
+        </a>
 
-  <a class="nav-pill {% if '/servicos/novo/' in request.path %}active{% endif %}" href="{% url 'tarefas:novo_servico' %}">
-    ➕ <span>Novo Serviço</span>
-  </a>
+        <a class="nav-pill {% if '/servicos/novo/' in request.path %}active{% endif %}" href="{% url 'tarefas:novo_servico' %}">
+          ➕ <span>Novo Serviço</span>
+        </a>
 
-  
- <div class="menu-section-title">FINANCEIRO</div>
+        <div class="menu-section-title">Comunicação</div>
+
+        <a class="nav-pill {% if '/mensagens/' in request.path %}active{% endif %}" href="{% url 'mensagens:caixa_entrada' %}">
+            💬 <span>Mensagens</span>
+                <span class="badge bg-danger ms-auto">{{ total_mensagens }}</span>
+        </a>
 
 
-<a class="nav-pill {% if '/financeiro/' in request.path %}active{% endif %}" href="{% url 'tarefas:financeiro' %}">
-    💰 <span>Financeiro</span>
-</a>
+        <div class="menu-section-title">Financeiro</div>
 
- 
-{% if request.user.is_superuser %}
-<a class="nav-pill {% if '/auditoria/' in request.path %}active{% endif %}" href="{% url 'tarefas:arquivo_auditoria' %}">
-  🧾 <span>Auditoria</span>
-</a>
-{% endif %}
+        <a class="nav-pill {% if '/financeiro/' in request.path %}active{% endif %}" href="{% url 'tarefas:financeiro' %}">
+          💰 <span>Financeiro</span>
+        </a>
 
-{% if user.is_superuser %}
-  <a class="nav-pill" href="/admin/auth/user/">
-      👥 <span>Gerenciar Usuários</span>
-  </a>
+        {% if request.user.is_superuser %}
+        <a class="nav-pill {% if '/auditoria/' in request.path %}active{% endif %}" href="{% url 'tarefas:arquivo_auditoria' %}">
+          🧾 <span>Auditoria</span>
+        </a>
+        {% endif %}
 
-  <a class="nav-pill" href="/admin/auth/user/add/">
-      ➕ <span>Criar Usuário</span>
-  </a>
-{% endif %}
- 
-</nav>
+        {% if user.is_superuser %}
+          <a class="nav-pill" href="/admin/auth/user/">
+            👥 <span>Gerenciar Usuários</span>
+          </a>
+
+          <a class="nav-pill" href="/admin/auth/user/add/">
+            ➕ <span>Criar Usuário</span>
+          </a>
+        {% endif %}
+      </nav>
+
       <div class="mt-auto">
-        <hr class="border-light opacity-25 my-3">
+        <div class="menu-divider"></div>
 
         {% if user.is_authenticated %}
           <div class="small mb-2" style="opacity: .9;">Logado como</div>
           <div class="d-flex align-items-center justify-content-between gap-2">
             <div class="text-truncate">👤 {{ user.username }}</div>
-            
+
             <form method="post" action="{% url 'logout' %}" style="margin: 0;">
-                {% csrf_token %}
-                <button type="submit" class="nav-pill border-0 bg-transparent w-100 text-start">
-        🚪                  <span>Sair</span>
-                </button>
+              {% csrf_token %}
+              <button type="submit" class="nav-pill border-0 bg-transparent w-100 text-start">
+                🚪 <span>Sair</span>
+              </button>
             </form>
-                     
           </div>
         {% else %}
           <a class="btn btn-light btn-sm w-100" href="{% url 'login' %}">Entrar</a>
@@ -235,17 +250,15 @@
               <form method="post" action="{% url 'logout' %}" style="margin: 0;">
                 {% csrf_token %}
                 <button type="submit" class="nav-pill border-0 bg-transparent w-100 text-start">
-        🚪                  <span>Sair</span>
+                  🚪 <span>Sair</span>
                 </button>
-            </form>
-              
+              </form>
             {% endif %}
           </div>
         </div>
       </nav>
 
       <main class="container-fluid px-3 px-md-4 py-4 page-box">
-
         {% if messages %}
           {% for message in messages %}
             <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
@@ -273,8 +286,9 @@
         <a class="btn btn-outline-light text-start" href="{% url 'tarefas:index' %}">🏠 Dashboard</a>
         <a class="btn btn-outline-light text-start" href="{% url 'tarefas:listar_clientes' %}">📋 Listar Clientes</a>
         <a class="btn btn-outline-light text-start" href="{% url 'tarefas:novo_cliente' %}">➕ Novo Cliente</a>
-        <a class="btn btn-outline-light text-start" href="{% url 'tarefas:listar_servicos' %}">🧾 Listar Serviços</a>
+        <a class="btn btn-outline-light text-start" href="{% url 'tarefas:listar_servicos' %}">🛠️ Listar Serviços</a>
         <a class="btn btn-outline-light text-start" href="{% url 'tarefas:novo_servico' %}">➕ Novo Serviço</a>
+        <a class="btn btn-outline-light text-start" href="{% url 'mensagens:caixa_entrada' %}">💬 Mensagens</a>
         <a class="btn btn-outline-light text-start" href="{% url 'tarefas:financeiro' %}">💰 Financeiro</a>
         <a class="btn btn-outline-light text-start" href="/admin/">⚙️ Administração</a>
       </div>
@@ -286,8 +300,8 @@
         <div class="d-flex align-items-center justify-content-between">
           <div>👤 {{ user.username }}</div>
           <form method="post" action="{% url 'logout' %}">
-              {% csrf_token %}
-              <button type="submit">Sair</button>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-light">Sair</button>
           </form>
         </div>
       {% else %}

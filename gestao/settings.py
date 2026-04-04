@@ -10,10 +10,13 @@ SECRET_KEY = "django-insecure-odoen%o&k8%+_2-8*h@&zra$qpn)^j2vdpgrw8jg8&1hyd_x-#
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "201.76.43.199",
-    "localhost",
-    "127.0.0.1",
-    "servicos.refrigeracaogdh.com.br",
+
+    '201.76.43.199',
+    'localhost',
+    '127.0.0.1',
+    'www.refrigeracaogdh.com.br',
+    'refrigeracaogdh.com.br'
+
 ]
 
 INSTALLED_APPS = [
@@ -24,6 +27,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "tarefas.apps.TarefasConfig",
+    "mensagens",  
 ]
 
 MIDDLEWARE = [
@@ -48,6 +52,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "mensagens.context_processors.total_mensagens",
             ],
         },
     },

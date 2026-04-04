@@ -97,3 +97,5 @@ class LogAuditoria(models.Model):
 
     def __str__(self):
         return f"{self.data_hora} - {self.nome_usuario} - {self.acao}"
+    
+    
