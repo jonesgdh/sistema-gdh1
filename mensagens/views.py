@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 
 from .forms import MensagemForm
 from .models import Mensagem
@@ -65,7 +66,11 @@ def conversa(request, user_id):
         remetente=outro_usuario,
         destinatario=request.user,
         lida=False
-    ).update(lida=True)
+    ).update(
+        entregue=True,
+        lida=True,
+        data_leitura=timezone.now()
+    )
 
     if request.method == 'POST':
         texto = request.POST.get('texto', '').strip()

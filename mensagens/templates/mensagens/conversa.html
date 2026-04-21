@@ -58,8 +58,20 @@
                      {% endif %}
                    ">
                 <div>{{ msg.texto }}</div>
-                <div class="mt-2" style="font-size: 12px; opacity: .8;">
-                  {{ msg.data_envio|date:"d/m/Y H:i" }}
+                <div class="mt-2 d-flex justify-content-between align-items-center" style="font-size: 12px; opacity: .8; gap: 10px;">
+                 <span>{{ msg.data_envio|date:"d/m/Y H:i" }}</span>
+
+                  {% if msg.remetente == request.user %}
+                    <span>
+                      {% if msg.lida %}
+                        ✔✔ Lida
+                      {% elif msg.entregue %}
+                        ✔✔ Entregue
+                      {% else %}
+                        ✔ Enviada
+                      {% endif %}
+                    </span>
+                  {% endif %}
                 </div>
               </div>
             </div>

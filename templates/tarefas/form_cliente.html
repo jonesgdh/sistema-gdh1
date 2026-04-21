@@ -1,12 +1,11 @@
 {% extends "tarefas/base.html" %}
 
-{% block title %}{{ titulo }}{% endblock %}
-{% block page_heading %}{{ titulo }}{% endblock %}
+{% block title %}Cadastro de Cliente{% endblock %}
+{% block page_heading %}{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
     <div>
-        <h1 class="h3 mb-1">{{ titulo }}</h1>
         <p class="text-muted mb-0">
             {% if titulo == "Editar Cliente" %}
                 Atualize os dados do cliente no sistema.

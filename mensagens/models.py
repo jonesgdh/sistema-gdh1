@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Mensagem(models.Model):
@@ -15,7 +16,10 @@ class Mensagem(models.Model):
     )
     texto = models.TextField()
     data_envio = models.DateTimeField(auto_now_add=True)
+
+    entregue = models.BooleanField(default=False)
     lida = models.BooleanField(default=False)
+    data_leitura = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         ordering = ['data_envio']

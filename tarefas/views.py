@@ -164,7 +164,7 @@ def novo_cliente(request):
 
     return render(request, 'tarefas/form_cliente.html', {
         'form': form,
-        'titulo': 'Novo Cliente'
+        'titulo': ''
     })
 
 

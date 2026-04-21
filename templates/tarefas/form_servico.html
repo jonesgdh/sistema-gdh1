@@ -15,7 +15,7 @@
         </div>
     {% endif %}
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         <div class="row g-3">
@@ -30,16 +30,6 @@
                 {{ form.data_servico }}
             </div>
 
-            <div class="col-md-6">
-                <label class="form-label">Equipamento</label>
-                {{ form.equipamento }}
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Marca</label>
-                {{ form.marca }}
-            </div>
-
             <div class="col-12">
                 <label class="form-label">Descrição</label>
                 {{ form.descricao }}
@@ -52,14 +42,18 @@
 
             <div class="col-md-6">
                 <label class="form-label">Status</label>
-                <label>Status</label>
-              <select name="status" class="form-control">
-              <option value="pendente">Pendente</option>
-              <option value="andamento">Em andamento</option>
-              <option value="finalizado">Finalizado</option>
-              <option value="cancelado">Cancelado</option>
-              </select>
                 {{ form.status }}
+            </div>
+
+            <!-- 🔥 NOVOS CAMPOS DE ANEXO -->
+            <div class="col-md-6">
+                <label class="form-label">Documento</label>
+                {{ form.documento }}
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Imagem</label>
+                {{ form.imagem }}
             </div>
 
         </div>

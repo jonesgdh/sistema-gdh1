@@ -24,12 +24,31 @@
 
                 <div class="mb-3">
                     <label for="id_password" class="form-label">Senha</label>
-                    <input type="password" name="password" class="form-control" id="id_password">
-                </div>
+
+                    <div class="input-group">
+                        <input type="password" name="password" class="form-control" id="id_password">
+
+                        <button type="button" class="btn btn-outline-secondary" onclick="toggleSenha()">
+                            👁
+                        </button>
+                     </div>
+                    </div>
 
                 <button type="submit" class="btn btn-primary w-100">Entrar</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+function toggleSenha() {
+    var senha = document.getElementById("id_password");
+
+    if (senha.type === "password") {
+        senha.type = "text";
+    } else {
+        senha.type = "password";
+    }
+}
+</script>
 {% endblock %}

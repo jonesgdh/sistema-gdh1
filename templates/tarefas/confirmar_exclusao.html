@@ -31,17 +31,10 @@
         </p>
 
         <form method="post">
-            {% csrf_token %}
-
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-danger">
-                    Sim, excluir
-                </button>
-
-                <a href="{% url 'tarefas:listar_clientes' %}" class="btn btn-outline-secondary">
-                    Cancelar
-                </a>
-            </div>
+                 {% csrf_token %}
+            <p>Tem certeza que deseja excluir {{ objeto.nome }}?</p>
+            <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
+            <a href="{% url 'tarefas:listar_clientes' %}" class="btn btn-secondary">Cancelar</a>
         </form>
 
     </div>

@@ -15,7 +15,6 @@ class Cliente(models.Model):
 
 
 class Servico(models.Model):
-
     STATUS_CHOICES = [
         ('pendente', 'Pendente'),
         ('andamento', 'Em andamento'),
@@ -23,22 +22,31 @@ class Servico(models.Model):
         ('cancelado', 'Cancelado'),
     ]
 
-    descricao = models.TextField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
+    TIPOS_SERVICO = [
+        ('instalacao', 'Instalação'),
+        ('manutencao', 'Manutenção'),
+        ('limpeza', 'Limpeza'),
+        ('reparo', 'Reparo'),
+        ('vistoria', 'Vistoria'),
+    ]
 
     cliente = models.ForeignKey(
         Cliente,
         on_delete=models.CASCADE,
         related_name='servicos'
     )
-    equipamento = models.CharField(max_length=100, blank=True, null=True)
-    marca = models.CharField(max_length=50, blank=True, null=True)
-    modelo = models.CharField(max_length=50, blank=True, null=True)
+
+    tipo_servico = models.CharField(
+        max_length=20,
+        choices=TIPOS_SERVICO,
+        blank=True,
+        null=True,
+        verbose_name='Tipo de Serviço'
+    )
 
     descricao = models.TextField()
     defeito_relatado = models.TextField(blank=True, null=True)
     diagnostico = models.TextField(blank=True, null=True)
-
     data_servico = models.DateField()
 
     valor_cobrado = models.DecimalField(
@@ -50,7 +58,21 @@ class Servico(models.Model):
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
-        default='aberto'
+        default='pendente'
+    )
+
+    documento = models.FileField(
+        upload_to='servicos/documentos/',
+        blank=True,
+        null=True,
+        verbose_name='Documento'
+    )
+
+    imagem = models.ImageField(
+        upload_to='servicos/imagens/',
+        blank=True,
+        null=True,
+        verbose_name='Imagem'
     )
 
     def total_despesas(self):
@@ -65,7 +87,7 @@ class Servico(models.Model):
 
 class Despesa(models.Model):
     servico = models.ForeignKey(
-        Servico,
+        'Servico',
         on_delete=models.CASCADE,
         related_name='despesas'
     )
@@ -96,6 +118,4 @@ class LogAuditoria(models.Model):
     data = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.data_hora} - {self.nome_usuario} - {self.acao}"
-    
-    
+        return f"{self.data} - {self.nome_usuario} - {self.acao}"
