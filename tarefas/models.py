@@ -47,7 +47,21 @@ class Servico(models.Model):
     descricao = models.TextField()
     defeito_relatado = models.TextField(blank=True, null=True)
     diagnostico = models.TextField(blank=True, null=True)
+
     data_servico = models.DateField()
+
+    # 👉 NOVOS CAMPOS (AQUI É O LUGAR CERTO)
+    data_agendada = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name='Data do Agendamento'
+    )
+
+    hora_agendada = models.TimeField(
+        blank=True,
+        null=True,
+        verbose_name='Hora do Agendamento'
+    )
 
     valor_cobrado = models.DecimalField(
         max_digits=10,
@@ -83,7 +97,6 @@ class Servico(models.Model):
 
     def __str__(self):
         return f"Serviço #{self.id} - {self.cliente.nome}"
-
 
 class Despesa(models.Model):
     servico = models.ForeignKey(

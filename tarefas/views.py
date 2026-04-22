@@ -1,3 +1,4 @@
+from datetime import date
 from decimal import Decimal
 from .utils import get_ip
 
@@ -8,6 +9,7 @@ from django.db.models.functions import Coalesce
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from openpyxl import Workbook
+from django.http import JsonResponse
 
 from .forms import ClienteForm, ServicoForm, DespesaForm
 from .models import Cliente, Servico, Despesa, LogAuditoria
@@ -99,38 +101,35 @@ def index(request):
 
 @login_required
 def index(request):
+    hoje = date.today()
+
     total_clientes = Cliente.objects.count()
-    total_servicos = Servico.objects.count()
-    servicos_abertos = Servico.objects.filter(status='aberto').count()
-    servicos_andamento = Servico.objects.filter(status='andamento').count()
-    servicos_concluidos = Servico.objects.filter(status='concluido').count()
-    servicos_entregues = Servico.objects.filter(status='entregue').count()
 
-    
-    faturamento_total = Servico.objects.aggregate(
-        total=Sum('valor_cobrado')
-    )['total'] or Decimal('0.00')
+    servicos_andamento = Servico.objects.filter(
+        status='andamento'
+    ).count()
 
-    total_despesas = Despesa.objects.aggregate(
-        total=Sum('valor')
-    )['total'] or Decimal('0.00')
+    servicos_finalizados_mes = Servico.objects.filter(
+        status='finalizado',
+        data_servico__year=hoje.year,
+        data_servico__month=hoje.month
+    ).count()
 
-    lucro = faturamento_total - total_despesas
+    faturamento_mensal = Servico.objects.filter(
+        data_servico__year=hoje.year,
+        data_servico__month=hoje.month
+    ).aggregate(
+        total=Coalesce(Sum('valor_cobrado'), Decimal('0.00'))
+    )['total']
 
     contexto = {
         'total_clientes': total_clientes,
-        'total_servicos': total_servicos,
-        'servicos_abertos': servicos_abertos,
         'servicos_andamento': servicos_andamento,
-        'servicos_concluidos': servicos_concluidos,
-        'servicos_entregues': servicos_entregues,
-        'faturamento_total': faturamento_total,
-        'total_despesas': total_despesas,
-        'lucro': lucro,
+        'servicos_finalizados_mes': servicos_finalizados_mes,
+        'faturamento_mensal': faturamento_mensal,
     }
 
     return render(request, 'tarefas/index.html', contexto)
-
 
 # =========================
 # CLIENTES
@@ -571,6 +570,50 @@ def exportar_financeiro_excel(request):
     workbook.save(response)
     return response
 
+# =========================
+# CALENDARIO
+# =========================
+
+@login_required
+def calendario_agendamentos(request):
+    return render(request, 'tarefas/calendario_agendamentos.html')
+
+
+@login_required
+def eventos_agendamentos(request):
+    servicos = Servico.objects.filter(data_agendada__isnull=False)
+    eventos = []
+
+    for servico in servicos:
+        if servico.status == 'andamento':
+            cor = '#0d6efd'
+        elif servico.status == 'finalizado':
+            cor = '#198754'
+        elif servico.status == 'cancelado':
+            cor = '#dc3545'
+        else:
+            cor = '#f0ad4e'
+
+        if servico.hora_agendada:
+            hora_json = servico.hora_agendada.strftime('%H:%M:%S')
+            hora_exibicao = servico.hora_agendada.strftime('%H:%M')
+        else:
+            hora_json = '08:00:00'
+            hora_exibicao = ''
+
+        tipo = servico.get_tipo_servico_display() if servico.tipo_servico else 'Serviço'
+
+        eventos.append({
+            'id': servico.id,
+            'title': f'{hora_exibicao} - {servico.cliente.nome}',
+            'start': f'{servico.data_agendada}T{hora_json}',
+            'description': servico.descricao or '',
+            'status': servico.get_status_display(),
+            'tipo_servico': tipo,
+            'color': cor,
+        })
+
+    return JsonResponse(eventos, safe=False)
 
 # =========================
 # LOGOUT

@@ -35,6 +35,10 @@ urlpatterns = [
         
     # AUDITORIA
     path('auditoria/', views.arquivo_auditoria, name='arquivo_auditoria'),
+    
+    # CALENDARIO
+    path('calendario/', views.calendario_agendamentos, name='calendario_agendamentos'),
+    path('eventos-agendamentos/', views.eventos_agendamentos, name='eventos_agendamentos'),
 
     # LOGOUT
     path('logout/', views.logout_view, name='logout'),

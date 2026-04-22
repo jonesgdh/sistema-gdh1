@@ -44,7 +44,7 @@ class ClienteForm(forms.ModelForm):
         }
 
     def clean_telefone(self):
-        telefone = self.cleaned_data.get('telefone', '')
+        telefone = self.cleaned_data.get('telefone') or ''
         telefone = re.sub(r'\D', '', telefone)
 
         if not telefone:
@@ -56,12 +56,18 @@ class ClienteForm(forms.ModelForm):
         return telefone
 
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get('email') or ''
 
         if not email:
             raise forms.ValidationError('Informe o e-mail.')
 
         return email
+
+    def clean_documento(self):
+        documento = self.cleaned_data.get('documento') or ''
+        documento = re.sub(r'\D', '', documento)
+        return documento
+
 
 class ServicoForm(forms.ModelForm):
     class Meta:
@@ -77,9 +83,15 @@ class ServicoForm(forms.ModelForm):
             'imagem',
         ]
         widgets = {
+            'cliente': forms.Select(attrs={
+                'class': 'form-control'
+            }),
             'data_servico': forms.DateInput(attrs={
                 'class': 'form-control',
                 'type': 'date'
+            }),
+            'tipo_servico': forms.Select(attrs={
+                'class': 'form-control'
             }),
             'descricao': forms.Textarea(attrs={
                 'class': 'form-control',
@@ -91,21 +103,24 @@ class ServicoForm(forms.ModelForm):
             'status': forms.Select(attrs={
                 'class': 'form-control'
             }),
-            'cliente': forms.Select(attrs={
-                'class': 'form-control'
-            }),
-            'tipo_servico': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
             'documento': forms.ClearableFileInput(attrs={
                 'class': 'form-control'
             }),
             'imagem': forms.ClearableFileInput(attrs={
                 'class': 'form-control'
             }),
-             
         }
+
+
 class DespesaForm(forms.ModelForm):
     class Meta:
         model = Despesa
         fields = ['descricao', 'valor']
+        widgets = {
+            'descricao': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'valor': forms.NumberInput(attrs={
+                'class': 'form-control'
+            }),
+        }

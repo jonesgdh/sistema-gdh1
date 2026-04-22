@@ -173,6 +173,12 @@
           ➕ <span>Novo Serviço</span>
         </a>
 
+        <div class="menu-section-title">Agenda</div>
+
+        <a class="nav-pill {% if '/calendario/' in request.path %}active{% endif %}" href="{% url 'tarefas:calendario_agendamentos' %}">
+          📅 <span>Calendário</span>
+        </a>
+
         <div class="menu-section-title">Comunicação</div>
 
         <a class="nav-pill {% if '/mensagens/' in request.path %}active{% endif %}" href="{% url 'mensagens:caixa_entrada' %}">
